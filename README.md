@@ -23,6 +23,7 @@ Streamlit-IPL-App/
 ├── py.ipynb            # Jupyter notebook for dataset exploration
 ├── ipl-matches.csv     # Matches dataset
 ├── ball.csv            # Ball-by-ball dataset
+├── requirements.txt    # Required Dependencies
 └── README.md           # Project documentation
 ```
 
