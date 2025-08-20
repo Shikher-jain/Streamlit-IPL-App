@@ -264,7 +264,13 @@ option = st.sidebar.selectbox(
 if option == "Teams":
     st.header("All IPL Teams")
     teams = teamsAPI()
-    st.json(teams)
+    print(teams['teams'])
+    print(len(teams['teams']))
+    for n, team in enumerate(teams['teams'], start=1):
+        st.write(f"{n}. {team}")
+
+    if st.button("Get Teams Data in JSON"):
+        st.json(teams)
 
 # ------------------ Team vs Team ------------------
 elif option == "Team vs Team":
@@ -275,13 +281,24 @@ elif option == "Team vs Team":
 
     if st.button("Compare"):
         result = teamVteamAPI(t1, t2)
-        st.json(result)
+        print(result)
+        st.subheader(f"Total Matches: {result['total_matches']}")
+        c1,c2,c3 = st.columns(3)
+        with c1:
+            st.write(f"{t1} Wins : {result[t1]}")
+        with c2:
+            st.write(f"{t2} Wins : {result[t2]}")
+        with c3:
+            st.write(f"Draws : {result['draws']}")
+
+        if st.button("Get Team vs Team Data in JSON"):
+            st.json(result)
+            
         chart_data = pd.DataFrame({
             "Team": [t1, t2, "Draws"],
             "Matches": [result[t1], result[t2], result["draws"]]
         })
         st.bar_chart(chart_data.set_index("Team"))
-
 
 # ------------------ Team Record ------------------
 elif option == "Team Record":
@@ -291,6 +308,12 @@ elif option == "Team Record":
     if st.button("Get Record"):
         record = team_recordAPI(team)
         st.json(record)
+        st.subheader(f"Overall Record for {team}")
+        st.write(f"Matches Played: {record[team]['Overall']['Matches Played']}")
+        st.write(f"Wins: {record[team]['Overall']['Wins']}")
+        st.write(f"Losses: {record[team]['Overall']['Losses']}")
+        st.write(f"Win Rate: {record[team]['Overall']['Win Rate']}")
+        st.write(f"Titles: {record[team]['Overall']['Titles']}")
 
 # ------------------ Batsman Stats ------------------
 elif option == "Batsman Stats":
