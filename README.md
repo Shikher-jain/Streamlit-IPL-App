@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 # Run the app
 streamlit run app.py
-
+```
 
 Visualization: Plotly, Matplotlib, Seaborn
 
